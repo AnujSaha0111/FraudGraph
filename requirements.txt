@@ -1,0 +1,11 @@
+fastapi>=0.115,<1.0
+uvicorn>=0.30,<1.0
+duckdb>=1.5,<2.0
+numpy>=1.26
+pandas>=2.0
+pyarrow>=14
+scipy>=1.11
+xgboost>=2.0
+
+# optional: SHAP TreeExplainer for /risk/explanation; without it a documented deterministic gain-based fallback is used (app/risk/explain.py)
+# shap>=0.44

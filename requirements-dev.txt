@@ -1,0 +1,7 @@
+# Development / test tooling.
+-r requirements.txt
+
+pytest>=7.4,<9
+httpx>=0.27
+# Capped below next minor: ruff 0.x minors may expand default rule sets (observed 0.12 -> 0.16 drift); validated line is 0.16.x.
+ruff>=0.12,<0.17

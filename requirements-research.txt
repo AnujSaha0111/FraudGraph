@@ -1,0 +1,12 @@
+# Optional research / data-pipeline stack (NOT needed to run the app or CI).
+# Used by scripts/import_ieee.py, scripts/build_modeling_table.py and the src/ research modules (regenerating derived caches from raw Kaggle CSVs).
+
+pandas>=2.0
+numpy>=1.26
+scipy>=1.11
+scikit-learn>=1.3
+xgboost>=2.0
+psutil>=5.9
+pyarrow>=14
+duckdb>=1.5,<2.0
+matplotlib>=3.8       # optional plots

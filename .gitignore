@@ -1,0 +1,38 @@
+# --- python ---
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# --- secrets / local env (commit .env.example instead) ---
+.env
+.env.local
+
+# --- RESTRICTED DATA: IEEE-CIS/Vesta competition derivatives ---
+# These are derived from the Kaggle IEEE-CIS Fraud Detection dataset, which
+# is governed by its own competition/distribution terms and is NOT
+# redistributable from this repository. Obtain the data yourself (see
+# scripts/setup_data.py and README "Data availability") and keep these
+# artifacts local. Exact-path rules so nothing else in data/ gets hidden.
+data/processed/ieee_train_transaction.parquet
+data/processed/experiment_base.parquet
+data/processed/production_features.parquet
+data/processed/graph_links.parquet
+
+# --- local app state (rebuild with scripts/bootstrap_db.py after data setup) ---
+data/app/
+*.duckdb
+
+# regenerable research caches not needed by the released system
+*.npz
+*.pkl
+*.joblib
+
+# logs
+*.log
+
+# --- frontend ---
+node_modules/
+frontend/dist/
