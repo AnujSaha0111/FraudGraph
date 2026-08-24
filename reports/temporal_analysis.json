@@ -1,0 +1,19 @@
+{
+  "anchor": "2017-12-01 00:00:00",
+  "dt_min": 86400,
+  "dt_max": 15811131,
+  "span_days": 182,
+  "split_dt_train_end": 10437998.1,
+  "split_dt_valid_end": 13151845.999999998,
+  "rows": {
+    "train": 413378,
+    "valid": 88581,
+    "test": 88581
+  },
+  "fraud_rate_pct": {
+    "train": 3.517,
+    "valid": 3.434,
+    "test": 3.48
+  },
+  "daily_counts_mean": 3244.7252747252746
+}

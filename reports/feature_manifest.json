@@ -1,0 +1,291 @@
+{
+ "features": [
+  {
+   "name": "amt_z_card",
+   "family": "history_deviation",
+   "source_entities": [
+    "card"
+   ],
+   "partner_entities": [],
+   "window": null,
+   "aggregation": "welford_zscore_vs_prior_amount_distribution",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN when entity missing or prior_count < 2 (no variance estimate)",
+   "rationale": "Amount far outside the card's own history is a strong behavioral-deviation signal (Phase-0 round-2 family).",
+   "control_status": "PASS",
+   "included_in_model": true
+  },
+  {
+   "name": "amt_z_device",
+   "family": "history_deviation",
+   "source_entities": [
+    "device"
+   ],
+   "partner_entities": [],
+   "window": null,
+   "aggregation": "welford_zscore_vs_prior_amount_distribution",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN when device absent or prior_count < 2",
+   "rationale": "Same deviation logic for shared/mule devices.",
+   "control_status": "PASS",
+   "included_in_model": true
+  },
+  {
+   "name": "hour_dev_card",
+   "family": "history_deviation",
+   "source_entities": [
+    "card"
+   ],
+   "partner_entities": [],
+   "window": null,
+   "aggregation": "circular_distance_to_prior_hour_distribution",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN when entity missing or prior_count == 0",
+   "rationale": "Transactions at unusual hours for this card.",
+   "control_status": "PASS",
+   "included_in_model": true
+  },
+  {
+   "name": "hour_dev_device",
+   "family": "history_deviation",
+   "source_entities": [
+    "device"
+   ],
+   "partner_entities": [],
+   "window": null,
+   "aggregation": "circular_distance_to_prior_hour_distribution",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN when device absent or prior_count == 0",
+   "rationale": "Transactions at unusual hours for this device.",
+   "control_status": "PASS",
+   "included_in_model": true
+  },
+  {
+   "name": "hours_since_last_card",
+   "family": "recency",
+   "source_entities": [
+    "card"
+   ],
+   "partner_entities": [],
+   "window": null,
+   "aggregation": "hours_since_previous_event",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN when entity missing or never seen before",
+   "rationale": "Dormancy break / rapid reuse context.",
+   "control_status": "PASS",
+   "included_in_model": true
+  },
+  {
+   "name": "hours_since_last_device",
+   "family": "recency",
+   "source_entities": [
+    "device"
+   ],
+   "partner_entities": [],
+   "window": null,
+   "aggregation": "hours_since_previous_event",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN when device absent or never seen before",
+   "rationale": "Dormancy break / rapid reuse context.",
+   "control_status": "PASS",
+   "included_in_model": true
+  },
+  {
+   "name": "is_new_device_card_pair",
+   "family": "novelty",
+   "source_entities": [
+    "device",
+    "card"
+   ],
+   "partner_entities": [
+    "card"
+   ],
+   "window": null,
+   "aggregation": "binary first_observation_of_pair_strictly_before_t",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN when either entity missing",
+   "rationale": "New device-card pairing is classic mule/CNP signal.",
+   "control_status": "FAIL",
+   "included_in_model": false
+  },
+  {
+   "name": "is_new_addr_card_pair",
+   "family": "novelty",
+   "source_entities": [
+    "address",
+    "card"
+   ],
+   "partner_entities": [
+    "card"
+   ],
+   "window": null,
+   "aggregation": "binary first_observation_of_pair_strictly_before_t",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN when either entity missing",
+   "rationale": "Card appearing behind a previously unseen billing address.",
+   "control_status": "FAIL",
+   "included_in_model": false
+  },
+  {
+   "name": "log_pair_count_device_card",
+   "family": "novelty",
+   "source_entities": [
+    "device",
+    "card"
+   ],
+   "partner_entities": [
+    "card"
+   ],
+   "window": null,
+   "aggregation": "log1p(prior co-occurrence count)",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN when either entity missing",
+   "rationale": "Continuum between brand-new and established pairing.",
+   "control_status": "FAIL",
+   "included_in_model": false
+  },
+  {
+   "name": "card_tx_1h",
+   "family": "velocity_windowed",
+   "source_entities": [
+    "card"
+   ],
+   "partner_entities": [],
+   "window": "[t-1h, t)",
+   "aggregation": "count_of_prior_transactions_in_window",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN (XGBoost-native missing)",
+   "rationale": "Short-window velocity without cumulative components.",
+   "control_status": "PASS",
+   "included_in_model": false
+  },
+  {
+   "name": "card_tx_24h",
+   "family": "velocity_windowed",
+   "source_entities": [
+    "card"
+   ],
+   "partner_entities": [],
+   "window": "[t-24h, t)",
+   "aggregation": "count_of_prior_transactions_in_window",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN (XGBoost-native missing)",
+   "rationale": "Short-window velocity without cumulative components.",
+   "control_status": "PASS",
+   "included_in_model": false
+  },
+  {
+   "name": "dev_tx_1h",
+   "family": "velocity_windowed",
+   "source_entities": [
+    "device"
+   ],
+   "partner_entities": [],
+   "window": "[t-1h, t)",
+   "aggregation": "count_of_prior_transactions_in_window",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN when device absent",
+   "rationale": "Device-side burst pressure.",
+   "control_status": "PASS",
+   "included_in_model": false
+  },
+  {
+   "name": "dev_tx_24h",
+   "family": "velocity_windowed",
+   "source_entities": [
+    "device"
+   ],
+   "partner_entities": [],
+   "window": "[t-24h, t)",
+   "aggregation": "count_of_prior_transactions_in_window",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN when device absent",
+   "rationale": "Device-side burst pressure.",
+   "control_status": "PASS",
+   "included_in_model": false
+  },
+  {
+   "name": "device_distinct_cards_24h",
+   "family": "windowed_distinct_partners",
+   "source_entities": [
+    "device"
+   ],
+   "partner_entities": [
+    "card"
+   ],
+   "window": "[t-24h, t)",
+   "aggregation": "n_distinct_partner_cards",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN (XGBoost-native missing)",
+   "rationale": "One device transacting across many cards within a day.",
+   "control_status": "FAIL",
+   "included_in_model": false
+  },
+  {
+   "name": "card_distinct_devices_24h",
+   "family": "windowed_distinct_partners",
+   "source_entities": [
+    "card"
+   ],
+   "partner_entities": [
+    "device"
+   ],
+   "window": "[t-24h, t)",
+   "aggregation": "n_distinct_partner_devices",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN (XGBoost-native missing)",
+   "rationale": "One card appearing across many devices within a day.",
+   "control_status": "FAIL",
+   "included_in_model": false
+  },
+  {
+   "name": "addr_distinct_cards_7d",
+   "family": "windowed_distinct_partners",
+   "source_entities": [
+    "address"
+   ],
+   "partner_entities": [
+    "card"
+   ],
+   "window": "[t-168h, t)",
+   "aggregation": "n_distinct_partner_cards",
+   "cutoff_rule": "strictly_before_t",
+   "training_only": false,
+   "inference_safe": true,
+   "missing_value_policy": "NaN (XGBoost-native missing)",
+   "rationale": "Address funneling multiple cards within a week.",
+   "control_status": "FAIL",
+   "included_in_model": false
+  }
+ ]
+}

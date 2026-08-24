@@ -1,0 +1,57 @@
+{
+  "structural_recovery": {
+    "RingA": {
+      "recovered": true,
+      "best_purity": 1.0
+    },
+    "RingB": {
+      "recovered": false,
+      "best_purity": null
+    },
+    "RingC": {
+      "recovered": true,
+      "best_purity": 0.968
+    }
+  },
+  "n_components_ge3": 3,
+  "XGB_base": {
+    "n": 18059,
+    "positives": 90,
+    "pr_auc": 0.5938817995026937,
+    "roc_auc": 0.9431935246504782,
+    "precision_at_0.01": 0.34254,
+    "recall_at_0.01": 0.68889,
+    "precision_at_0.001": 1.0,
+    "recall_at_0.001": 0.2,
+    "threshold": 0.019147073850035667,
+    "precision": 0.3902439024390244,
+    "recall": 0.8888888888888888,
+    "f1": 0.5423728813559322,
+    "confusion": {
+      "tn": 17844,
+      "fp": 125,
+      "fn": 10,
+      "tp": 80
+    }
+  },
+  "XGB_graph": {
+    "n": 18059,
+    "positives": 90,
+    "pr_auc": 0.8906340778719647,
+    "roc_auc": 0.9542372357331455,
+    "precision_at_0.01": 0.44751,
+    "recall_at_0.01": 0.9,
+    "precision_at_0.001": 1.0,
+    "recall_at_0.001": 0.2,
+    "threshold": 0.251129150390625,
+    "precision": 1.0,
+    "recall": 0.8222222222222222,
+    "f1": 0.9024390243902439,
+    "confusion": {
+      "tn": 17969,
+      "fp": 0,
+      "fn": 16,
+      "tp": 74
+    }
+  }
+}
