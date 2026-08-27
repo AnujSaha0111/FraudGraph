@@ -1,0 +1,61 @@
+{
+  "demo_version": "v1.0.0",
+  "demo_seed": 42,
+  "generated_at": "2026-08-24T03:46:22Z",
+  "source_types": {
+    "real": "IEEE-CIS derived (public dataset, 24.4% identity coverage)",
+    "synthetic": "Synthetic rings (planted ground truth, controlled experiment)"
+  },
+  "provenance_warning": "Synthetic data is NEVER presented as real fraud evidence. All synthetic claims are labeled 'Synthetic structural validation'.",
+  "real_demo": {
+    "transaction_id": 3011051,
+    "risk_score": 0.9999340772628784,
+    "risk_band": "CRITICAL",
+    "model_version": "fraud_xgb_v1-9e2978c",
+    "evidence_by_type": {
+      "VELOCITY_BURST": 1,
+      "CONNECTED_HIGH_RISK": 9,
+      "COMMUNITY_STATS": 1,
+      "NEW_PAIRING": 1
+    },
+    "evidence_total": 12,
+    "graph_links": 2,
+    "suitable_for_investigation": true
+  },
+  "synthetic_demo": {
+    "ring_a_purity": 1.0,
+    "ring_c_purity": 0.968,
+    "xgb_graph_pr_auc": 0.8906,
+    "label": "Synthetic structural validation \u2014 research/demo validation, not real-world fraud performance.",
+    "ground_truth_path": "data/synthetic/ring_ground_truth.json",
+    "ground_truth_hash": "98203aaae972ca97",
+    "synthetic_transactions": "data/synthetic/synthetic_transactions.parquet",
+    "note": "Use scripts/evaluate_synthetic_rings.py results; do not claim as production metrics."
+  },
+  "entity_risk_context": {
+    "example_entity": "ADDRESS:315",
+    "min_label_lag_days": 7,
+    "note": "EntityRisk is investigation context only; not an XGBoost feature."
+  },
+  "case_workflow": {
+    "can_create_case": true,
+    "can_transition": [
+      "NEW",
+      "INVESTIGATING",
+      "ESCALATED",
+      "CONFIRMED_FRAUD",
+      "CLOSED"
+    ],
+    "decision_immutable": true,
+    "label_created": true
+  },
+  "canonical_artifacts": {
+    "production_features": "7bb47b8e74e6bf9d",
+    "graph_links": "4f6773809c9d898f",
+    "model": "119a12160428d71b",
+    "features": "ae08407195df3912",
+    "evidence_engine": "v1",
+    "graph_version": "v1"
+  },
+  "isolated_demo_db": "data/app/demo.duckdb (created only with --seed-demo-db; never overwrites fraudgraph.duckdb)"
+}

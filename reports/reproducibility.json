@@ -1,0 +1,27 @@
+{
+  "model_version": "fraud_xgb_v1-9e2978c",
+  "feature_count": 438,
+  "feature_hash": "ce8c96d558c8c826",
+  "feature_version": "9e2978c13c79",
+  "seed": 42,
+  "split": {
+    "train_end": 10437998.1,
+    "valid_end": 13151845.999999998,
+    "rows": {
+      "train": 109911,
+      "valid": 15654,
+      "test": 18668
+    }
+  },
+  "git_sha": "5ccc6bb5bba4a5124d1f35a279ca98aff81d8479",
+  "metrics_test_pr_auc": 0.736687914424724,
+  "threshold": 0.308892833025914,
+  "reload_max_diff": 0.0,
+  "reload_mean_diff": 0.0,
+  "reload_equivalent": true,
+  "fixture_rows": 10,
+  "fixture_cols": 438,
+  "latency_ms_first": 3.67,
+  "pr_auc_ge_073": true,
+  "generated_at": "2026-08-23T20:05:36Z"
+}
